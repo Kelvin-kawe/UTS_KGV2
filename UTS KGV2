@@ -1,0 +1,106 @@
+#include <iostream>
+#include <iostream>
+#include <glut.h>
+#include <stdlib.h>
+#include <string>
+using namespace std;
+
+
+float koordinatX = 240, koordinatY = 240;
+
+void objek()
+{
+    glBegin(GL_QUADS);
+    glColor3ub(255, 0, 0);
+    glVertex2f(koordinatX+20, koordinatY+20);
+    glColor3ub(0, 255, 0);
+    glVertex2f(koordinatX - 20, koordinatY + 20);
+    glColor3ub(0, 0, 255);
+    glVertex2f(koordinatX + 20, koordinatY - 20);
+    glColor3ub(255, 255, 0);
+    glVertex2f(koordinatX - 20, koordinatY - 20);
+    glColor3ub(255, 0, 0);
+    glVertex2f(koordinatX - 20, koordinatY + 20);
+    glColor3ub(0, 255, 0);
+    glVertex2f(koordinatX + 20, koordinatY + 20);
+    glColor3ub(0, 0, 255);
+    glVertex2f(koordinatX - 20, koordinatY - 20);
+    glColor3ub(255, 255, 0);
+    glVertex2f(koordinatX + 20, koordinatY - 20);
+    glEnd();
+}
+
+void keyboard(unsigned char key, int x, int y)
+{
+    switch (key)
+    {
+    case'w':
+    case'W':
+        koordinatY += 10;
+    }
+    switch (key)
+    {
+    case's':
+    case'S':
+        koordinatY -= 10;
+    }
+    switch (key)
+    {
+    case'd':
+    case'D':
+        koordinatX += 10;
+    }
+    switch (key)
+    {
+    case'a':
+    case'A':
+        koordinatX -= 10;
+    }
+    glutPostRedisplay();
+}
+
+void mouse(int button, int state, int x, int y)
+{
+    if (button == GLUT_LEFT_BUTTON)
+    {
+        koordinatX = 20;
+        koordinatY = 240;
+    }
+    else if (button == GLUT_RIGHT_BUTTON)
+    {
+        koordinatX = 460;
+        koordinatY = 240;
+    }
+    else if (button == GLUT_LEFT_BUTTON)
+    {
+        koordinatX = 0;
+        koordinatY = 240;
+    }
+    else
+    {
+        koordinatX = 240;
+        koordinatY = 240;
+    }
+}
+
+static void display(void)
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    objek();
+    glutSwapBuffers();
+}
+
+int main(int argc, char* argv[])
+{
+    glutInit(&__argc, __argv);
+    glutInitWindowSize(640, 480);
+    glutInitWindowPosition(10, 10);
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+    glutCreateWindow("KGV");
+    gluOrtho2D(0, 480, 0, 480);
+    glutDisplayFunc(display);
+    glutKeyboardFunc(keyboard);
+    glutMouseFunc(mouse);
+    glutMainLoop();
+    return EXIT_SUCCESS;
+}
